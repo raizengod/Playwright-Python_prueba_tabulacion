@@ -1,0 +1,44 @@
+name: Automation Ejemplos básicos
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch: # Permite ejecutar el workflow manualmente
+    
+jobs:
+  test:
+    timeout-minutes: 170
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13.5' # Asegúrate de que esta sea la versión de Python que usas
+      - name: Instalar dependencias de Python
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt # Asegúrate de que pytest-playwright esté en requirements.txt
+      - name: Instalar navegadores de Playwright
+        run: playwright install --with-deps
+      - name: Ejecutar pruebas de Playwright
+        run: |
+          # Asegúrate de que pytest-reporter-html1 esté incluido en requirements.txt (pip install pytest-reporter-html1)
+          # Aquí estoy simplificando el comando para que pytest genere el reporte HTML directamente
+          # Si necesitas el orden específico y el template, ajusta el comando según tu necesidad.
+          # Asegúrate de que 'reportes/html1/' exista o pytest lo creará.
+          pytest Simples/test/ -s -v --template=html1/index.html --report=reportes/html1/playwright_reporte.html
+        
+      - name: Subir informe de pruebas de Playwright (para debugging o descarga)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-raw-report # El nombre del artefacto original, por si alguien quiere el nombre original
+          path: reportes/html1/playwright_reporte.html # Ahora subimos el index.html renombrado
+          retention-days: 30
