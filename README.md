@@ -1,8 +1,7 @@
-# Proyecto de Automatización de Pruebas UI y rendimiento básico con Playwright y Python 🧪
+# Proyecto de Automatización de Pruebas UI simples con Playwright y Python 🧪
 
 ## 🚀 Descripción General
-Este proyecto es un framework de automatización de pruebas de interfaz de usuario (UI) robusto y escalable, desarrollado con Playwright y Python, utilizando Pytest como gestor de pruebas. 
-Este repositorio contiene un proyecto básico en Python que utiliza la herramienta [Playwright](https://playwright.dev/python/) para realizar pruebas automatizadas de rendimiento en aplicaciones web.
+Este proyecto es un framework de automatización de pruebas de interfaz de usuario (UI) desarrollado con [Playwright](https://playwright.dev/python/) y Python, utilizando Pytest como gestor de pruebas. Su objetivo principal es verificar el comportamiento de un formulario de texto con simulación de interacción con el teclado y la funcionalidad de descarga de archivos. El framework está diseñado para ser modular y escalable, con una estructura de código clara que facilita la reusabilidad y el mantenimiento.
 
 ## ✨ Características Principales
 El framework incluye una serie de funcionalidades diseñadas para optimizar y enriquecer el proceso de automatización:
@@ -12,56 +11,49 @@ El framework incluye una serie de funcionalidades diseñadas para optimizar y en
 * **Gestión de Pruebas:** Organización y ejecución de casos de prueba con Pytest, aprovechando su sistema de fixtures.
 * **Cross-Browser & Responsive Testing:** Soporte para pruebas en Chromium, Firefox y WebKit, incluyendo emulación de dispositivos móviles como iPhone 12 y Pixel 5 para asegurar la compatibilidad y el comportamiento responsivo.
 * **Manejo de Elementos y Interacciones:** Funciones globales para:
-    * Verificación contenido de una tabla
-    * Relleno de campos de texto y numéricos.
-    * Interacción con iframes y nuevas ventanas/pestañas.
-    * Validación de títulos de página.
-* **Gestión de Archivos:** Capacidades para lectura de diversos formatos de datos:
-    * Excel (.xlsx)
-    * CSV (.csv)
-    * JSON (.json)
-    * XML
-* **Generación de Evidencias:** Capturas de pantalla automáticas en puntos críticos y rutas configurables para almacenamiento de videos y trazas de ejecución.
+    * Verificar el orden de tabulación en un formulario (tecla Tab).
+    * Verificar la tabulación inversa (teclas Shift + Tab).
+    * Hacer clic en elementos.
+    * Validar la URL y el título de la página.
+    * Gestionar la descarga de archivos y verificar que la operación se complete exitosamente.
+* **Generación de Evidencias:** 
+    * Capturas de pantalla automáticas en puntos críticos, con rutas configurables para almacenamiento.
+    * Grabaciones de video de las ejecuciones de las pruebas.
+    * Archivos de traza de Playwright (traceview) para un análisis detallado de la ejecución.
+* **Organización del Código:** Estructura de proyecto modular que separa localizadores (locator), lógica de página (pages) y utilidades (utils), promoviendo la reusabilidad y mantenibilidad.
 * **Logging Configurable:** Sistema de logging detallado con niveles de salida separados para consola y archivo, facilitando la depuración y el seguimiento de la ejecución.
-* **Organización del Código:** Estructura de proyecto modular que separa locators, páginas y utilidades, promoviendo la reusabilidad y mantenibilidad.
-* **Pruebas de Rendimiento Básicas:**
-    * **Medición de Tiempos de Carga:** Se han integrado mediciones de tiempo de principio a fin para acciones específicas como Drag and Drop.
-    * **Logging de Rendimiento:** Los tiempos de ejecución de operaciones críticas se registran en los logs para su posterior análisis.
+* **Fixtures Reutilizables:** Utilización de conftest.py para definir fixtures que configuran la página de Playwright y navegan a la URL de prueba, reduciendo la duplicación de código en los tests.
 
 ## 🛠️ Tecnologías Utilizadas
 * **Playwright:** Framework de automatización de navegadores.
 * **Python:** Lenguaje de programación.
 * **Pytest:** Framework para la gestión y ejecución de pruebas.
-* **pytest-html:** Para la generación de informes HTML autocontenidos.
-* **Openpyxl:** Librería para manejar archivos .xlsx.
-* **CSV:** Módulo para trabajar con archivos .csv.
-* **JSON:** Módulo para manejar archivos JSON.
-* **xml.etree.ElementTree:** Módulo para trabajar con archivos XML.
-* **Logging:** Módulo estándar de Python para el registro de eventos.
+* **os:** Módulo estándar de Python para interactuar con el sistema operativo (e.g., renombrar archivos).
+* **datetime:** Módulo para manejar fechas y horas, usado para generar nombres de archivos únicos.
 
 ## 📂 Estructura del Proyecto
 La estructura del proyecto está diseñada para ser clara, modular y fácil de mantener:
 ```
 .
-├── Perform/
+├── Simples/
 │   ├── pages/                   # Clases con las funciones de las páginas (lógica)
 │   │   ├── base_page.py
 │   ├── locator/                 # Clases con los selectores de los elementos
 │   │   ├── locator_barraNavegacion.py
-│   │   └── locator_ModalDataTable.py
+│   │   ├── locator_formularioDescarga.py
+│   │   └── locator_formularioTextBox.py
 │   ├── utils/                   # Módulos de utilidad
 │   │   ├── config.py
 │   │   └── logger.py
 ├── test/
-│   ├── archivos/               # Archivos de prueba (ej. para upload/download)
-│   │   └── archivos_data_fuente/
-│   ├── reportes/               # Directorio para almacenar evidencias de las pruebas
-│   │   ├── html/               # Informes HTML
-│   │   ├── video/              # Grabaciones de video de las ejecuciones
-│   │   ├── traceview/          # Archivos traceview de Playwright
-│   │   └── imagen/             # Capturas de pantalla
-│   ├── conftest.py              # Fixtures de Pytest para configuraciones globales
-│   └── test_ModalDataTable.py   # Archivos de pruebas
+│   ├── conftest.py                 # Fixtures de Pytest para configuraciones globales
+│   ├── test_descarga.py            # Pruebas para la funcionalidad de descarga de archivos
+│   ├── test_textBox.py             # Pruebas para la funcionalidad de tabulación en el formulario
+│   └── reportes/               # Directorio para almacenar evidencias de las pruebas
+│       ├── html/               # Informes HTML
+│       ├── video/              # Grabaciones de video de las ejecuciones
+│       ├── traceview/          # Archivos traceview de Playwright
+│       └── imagen/             # Capturas de pantalla
 ├── requirements.txt             # Dependencias del proyecto
 └── README.md
 ```
@@ -70,8 +62,8 @@ La estructura del proyecto está diseñada para ser clara, modular y fácil de m
 **Clonar el repositorio:**
 
 ```bash
-git clone https://github.com/raizengod/Playwright-Python_prueba_rendiemiento_basico.git
-cd Rendimiento
+git clone https://github.com/raizengod/Playwright-Python_prueba_tabulacion.git
+cd EjemplosSimples
 ```
 
 **Crear y activar un entorno virtual (recomendado):**
@@ -83,7 +75,7 @@ python -m venv mv_Rendimiento
 ```
 
 ```bash
-python -m venv mv_Rendimiento
+python -m venv mv_EjSiemples
 source venv/bin/activate
 # En macOS/Linux
 ```
@@ -96,11 +88,6 @@ playwright install  # Instala los navegadores necesarios (Chromium, Firefox, Web
 # (Asegúrate de que pytest-reporter-html1 esté incluido en requirements.txt)
 ```
 
-```bash
-pip install playwright pytest pytest-html openpyxl
-playwright install
-```
-
 Asegurar Directorios de Evidencias: El archivo config.py define una función ensure_directories_exist() que crea automáticamente las carpetas necesarias para reportes y archivos de datos. Asegúrate de que esta función se ejecute, o créalas manualmente según la Estructura del Proyecto.
 
 ## 🚀 Uso
@@ -110,27 +97,27 @@ Para ejecutar las pruebas, asegúrate de estar en el entorno virtual activado y 
 
 1.  **Ejecuta las pruebas y genera los resultados de reporte:**
     ```bash
-    pytest Perform\test\test_ModalDataTable.py -s -v --template=html1/index.html --report=reportes/html1/playwright_reporte.html
+    pytest Simples\test\test_descarga.py -s -v --template=html1/index.html --report=reportes/html1/playwright_reporte.html
     ```
 
 2.  **Ejecutar todas las pruebas con Pytest:**
     ```bash
-    pytest Perform\test\
+    pytest Simples\test\
     ```
 
 3.  **Ejecutar pruebas específicas (ejemplo):**
     ```bash
-    pytest Perform\test\test_ModalDataTable.py
+    pytest Simple\test\test_textBox.py
     ```
 
 4.  **Ejecutar todas las pruebas con reporte detallado y genera los resultados en reporte HTML:**:**
     ```bash
-    pytest Perform\test\ -s -v --template=html1/index.html --report=reportes/html1/playwright_reporte.html
+    pytest Simples\test\ -s -v --template=html1/index.html --report=reportes/html1/playwright_reporte.html
     ```
 
 5.  **Ejecuta las pruebas en paralelo y genera los resultados de reporte:**
     ```bash
-    pytest Perform\test\ -s -v -n 5 --template=html1/index.html --report=reportes/html1/playwright_reporte.html
+    pytest Simples\test\ -s -v -n 5 --template=html1/index.html --report=reportes/html1/playwright_reporte.html
     ```
 
 ## 📊 Integración de Pruebas de Rendimiento
@@ -170,7 +157,7 @@ A través de este proyecto, demuestro las siguientes habilidades clave en QA Aut
 * **Integración Continua (CI):** Configuración y mantenimiento de pipelines de CI con GitHub Actions para una ejecución de pruebas automatizada y recurrente, esencial en el ciclo de vida del desarrollo de software.
 * **Identificación y Reporte de Bugs:** Capacidad para diseñar pruebas que revelen defectos y, en un entorno de trabajo real, reportarlos adecuadamente con evidencia relevante.
 * **Mantenibilidad de Código:** Organización del código para facilitar futuras actualizaciones y extensiones de las pruebas, promoviendo la colaboración y escalabilidad a largo plazo.
-* **Manejo de Datos en Pruebas:** Experiencia en la lectura y escritura de datos de prueba desde/hacia archivos Excel, CSV, JSON y XML.
+* **Pruebas de Funcionalidad Específica:** Enfoque en la verificación de funcionalidades clave como el orden de los elementos al usar la tecla Tab, lo cual es crucial para la accesibilidad y la experiencia del usuario.
 
 # 🔮 Mejoras Futuras / Roadmap
 

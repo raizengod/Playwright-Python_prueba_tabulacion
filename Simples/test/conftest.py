@@ -57,11 +57,11 @@ def playwright_page(playwright: Playwright, request) -> Generator[Page, None, No
 
     try:
         if browser_type == "chromium":
-            browser_instance = playwright.chromium.launch(headless=False, slow_mo=500)
+            browser_instance = playwright.chromium.launch(headless=True, slow_mo=500)
         elif browser_type == "firefox":
-            browser_instance = playwright.firefox.launch(headless=False, slow_mo=500)
+            browser_instance = playwright.firefox.launch(headless=True, slow_mo=500)
         elif browser_type == "webkit":
-            browser_instance = playwright.webkit.launch(headless=False, slow_mo=500)
+            browser_instance = playwright.webkit.launch(headless=True, slow_mo=500)
         else:
             raise ValueError(f"\nEl tipo de navegador '{browser_type}' no es compatible.")
 
