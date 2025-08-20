@@ -9674,6 +9674,7 @@ class Funciones_Globales:
             # self.tomar_captura(f"{nombre_base}_error_inesperado", direccion)
             raise AssertionError(f"\nError inesperado al verificar el foco: {e}") from e
     
+    # 77- Función para descargar un archivo al hacer clic en un selector específico.
     def descargar_archivo(self, selector: Union[str, Locator], nombre_base: str, directorio_capturas: str, directorio_descargas: str, tiempo: Union[int, float] = 30.0) -> str:
         """
         Descarga un archivo al hacer clic en un selector específico.
