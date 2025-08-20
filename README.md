@@ -69,13 +69,13 @@ cd EjemplosSimples
 **Crear y activar un entorno virtual (recomendado):**
 
 ```bash
-python -m venv mv_Rendimiento
+python -m venv mv_EjSimples
 .\venv\Scripts\activate
 # En Windows
 ```
 
 ```bash
-python -m venv mv_EjSiemples
+python -m venv mv_EjSimples
 source venv/bin/activate
 # En macOS/Linux
 ```
@@ -117,7 +117,7 @@ Para ejecutar las pruebas, asegúrate de estar en el entorno virtual activado y 
 
 5.  **Ejecuta las pruebas en paralelo y genera los resultados de reporte:**
     ```bash
-    pytest Simples\test\ -s -v -n 5 --template=html1/index.html --report=reportes/html1/playwright_reporte.html
+    pytest Simples\test\ -s -v -n 3 --template=html1/index.html --report=reportes/html1/playwright_reporte.html
     ```
 
 ## 📊 Integración de Pruebas de Rendimiento
